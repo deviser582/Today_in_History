@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Today_in_History</string>
+    <string name="today">今天是：</string>
+    <string name="enter">查看历史上的今天</string>
+    <string name="type_explain">类型：</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
