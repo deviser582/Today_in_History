@@ -8,14 +8,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
+
+import javax.net.ssl.HttpsURLConnection;
 
 
 public class Fragment_Birth extends Fragment {
@@ -29,6 +44,9 @@ public class Fragment_Birth extends Fragment {
     private List<RvData> list = new ArrayList<>();
     private RV_Adapter rv_adapter = new RV_Adapter(list);
     private Context context;
+
+    private Handler mHandler;
+    private Handler tHandler;
 
     public Fragment_Birth() {
         // Required empty public constructor
@@ -51,7 +69,26 @@ public class Fragment_Birth extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        initData();
+        sendRequestWithHttpURLConnection();
+
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                jsonDecode((String)msg.obj);
+            }
+        };
+
+        /*tHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1:
+                        Toast.makeText(Fragment_Birth.this,"连接超时",Toast.LENGTH_SHORT).show();
+                }
+            }
+        };*/
+
     }
 
     @Override
@@ -69,10 +106,75 @@ public class Fragment_Birth extends Fragment {
         //return inflater.inflate(R.layout.fragment__birth, container, false);
     }
 
-    public void initData(){
-        list.add(new RvData("1265年","0208","death","伊利汗国的建立者旭烈兀逝世","旭烈兀（Hulagu或者Hulegu，1217年—1265年2月8日），蒙古族人，成吉思汗之孙、拖雷之子、忽必烈、蒙哥和阿里不哥的兄弟，四人"));
-        list.add(new RvData("1587年","0208","death","苏格兰女王玛丽一世被斩首处死","苏格兰女王玛丽一世（Mary Stuart或Mary, Queen of Scots，1542年12月8日－1587年2月8日）是苏格兰的统治者（在位时间1542年12"));
-        rv_adapter.notifyDataSetChanged();
+    private void sendRequestWithHttpURLConnection() {
+        final String mUrl = "https://v1.alapi.cn/api/eventHitory";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(mUrl);
+                    HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(8000);
+                    connection.setReadTimeout(8000);
+                    connection.connect();
+                    InputStream in = connection.getInputStream();
+                    String responseData = StreamToString(in);
+
+                    Message msg = new Message();//新建一个Message
+                    msg.obj = responseData;//将数据赋值给message的obj属性
+                    mHandler.sendMessage(msg);//通过在主线程中实例化好的mHandler发送出Message
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                    /*Message msg = new Message();
+                    msg.what = 1;
+                    tHandler.sendMessage(msg);*/
+                }
+            }
+        }).start();
+    }
+
+    private String StreamToString(InputStream in) {
+        StringBuilder sb = new StringBuilder();
+        String oneline;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        try{
+            while ((oneline = reader.readLine()) != null){
+                sb.append(oneline).append('\n');
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                in.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
+
+    private void jsonDecode(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArraydatas = jsonObject.getJSONArray("data");
+            for (int i=0;i < jsonArraydatas.length();i++) {
+                JSONObject jsonObjectdata = jsonArraydatas.getJSONObject(i);
+                String year = jsonObjectdata.getString("year");
+                String monthday = jsonObjectdata.getString("monthday");
+                String title = jsonObjectdata.getString("title");
+                String desc = jsonObjectdata.getString("desc");
+                String type = jsonObjectdata.getString("type");
+                if (type.equals("birth")) {
+                    list.add(new RvData(year+"年", monthday, type, title, desc));
+                    rv_adapter.notifyDataSetChanged();
+                }
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -37,7 +37,7 @@ public class RV_Adapter extends RecyclerView.Adapter<RV_Adapter.RV_Viewholder> {
     @Override
     public RV_Viewholder onCreateViewHolder(ViewGroup parent,int viewType){
         return new RV_Viewholder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rv,null));
-    }
+}
 
     @Override
     public void onBindViewHolder(@NonNull RV_Viewholder holder,int position){

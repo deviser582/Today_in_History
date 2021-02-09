@@ -25,6 +25,7 @@
         android:id="@+id/type_explain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/type_explain"
         android:textSize="20dp"
         android:layout_below="@+id/year"
         android:layout_alignLeft="@+id/year"
@@ -56,6 +57,13 @@
         android:layout_below="@id/title"
         android:layout_alignLeft="@+id/title"
         />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/desc"
+        android:src="@mipmap/seprate"
+        />aa
 
 
 
