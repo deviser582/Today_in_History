@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9D75E0</color>
+    <color name="colorPrimary">#767978</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#D83535</color>
     <color name="mainBackround">#FF9800</color>
     <color name="btn_enter">#FF9800</color>
     <color name="main_text">#F7F7F8</color>
     <color name="tab_choose">#8BC34A</color>
-    <color name="birth">#6699ff</color>
-    <color name="death">#FFEB3B</color>
+    <color name="birth">#33B538</color>
+    <color name="death">#167269</color>
     <color name="event">#F44336</color>
 </resources>

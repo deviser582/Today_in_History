@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Tab_Choose.class);
+                Intent intent = new Intent(MainActivity.this,Tab_choose_2.class);
                 startActivity(intent);
             }
         });

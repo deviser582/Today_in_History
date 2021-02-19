@@ -1,20 +1,27 @@
 package com.example.today_in_history;
 
+import android.content.Intent;
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Bundle;
-
-import com.google.android.material.tabs.TabLayout;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tab_Choose extends AppCompatActivity {
+public class Tab_choose_2 extends AppCompatActivity {
+
     TabLayout tabLayout;
     ViewPager viewPager;
     List<Fragment> fragmentList = new ArrayList<>();
@@ -23,7 +30,18 @@ public class Tab_Choose extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_choose);
+        setContentView(R.layout.tab_choose_2);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Tab_choose_2.this,Service_Menu.class);
+                startActivity(intent);
+            }
+        });
 
         tabLayout = findViewById(R.id.choose_type);
         viewPager = findViewById(R.id.vp_tab_choose);
@@ -54,6 +72,7 @@ public class Tab_Choose extends AppCompatActivity {
 
             }
         });
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -78,4 +97,5 @@ public class Tab_Choose extends AppCompatActivity {
             return fragmentTitle.get(position);
         }
     }
+
 }

@@ -121,9 +121,9 @@ public class Fragment_Birth extends Fragment {
                     InputStream in = connection.getInputStream();
                     String responseData = StreamToString(in);
 
-                    Message msg = new Message();//新建一个Message
-                    msg.obj = responseData;//将数据赋值给message的obj属性
-                    mHandler.sendMessage(msg);//通过在主线程中实例化好的mHandler发送出Message
+                    Message msg = new Message();
+                    msg.obj = responseData;
+                    mHandler.sendMessage(msg);
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -6,6 +6,7 @@
     <TextView
         android:id="@+id/year"
         android:layout_width="70dp"
+        android:textColor="@color/main_text"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_alignParentLeft="true"
@@ -14,6 +15,7 @@
 
     <TextView
         android:id="@+id/monthday"
+        android:textColor="@color/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -23,6 +25,7 @@
 
     <TextView
         android:id="@+id/type_explain"
+        android:textColor="@color/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/type_explain"
@@ -33,6 +36,7 @@
 
     <TextView
         android:id="@+id/type"
+        android:textColor="@color/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -42,6 +46,7 @@
 
     <TextView
         android:id="@+id/title"
+        android:textColor="@color/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
@@ -51,6 +56,7 @@
 
     <TextView
         android:id="@+id/desc"
+        android:textColor="@color/main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
