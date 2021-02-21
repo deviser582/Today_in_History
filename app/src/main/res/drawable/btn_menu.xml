@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/btn_menu"/>
+
+    <corners android:radius="20dp"/>
+
+    <stroke android:color="@color/main_text"
+        android:width="5sp"
+        android:dashGap="1dp"
+        android:dashWidth="10dp"
+        />
+
+</shape>

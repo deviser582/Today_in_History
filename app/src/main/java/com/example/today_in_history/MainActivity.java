@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         week = (TextView)findViewById(R.id.week);
         setTime();
 
+        //向展示接口信息界面跳转
         Button enter = (Button)findViewById(R.id.enter);
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //获取时间信息并展示再UI上
     public void setTime() {
         Calendar calendar = Calendar.getInstance();
         mMonth = String.valueOf(calendar.get(Calendar.MONTH) + 1);

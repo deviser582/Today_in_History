@@ -49,7 +49,6 @@ public class Fragment_Birth extends Fragment {
     private Handler tHandler;
 
     public Fragment_Birth() {
-        // Required empty public constructor
     }
 
     public static Fragment_Birth newInstance(String param1, String param2) {
@@ -71,6 +70,8 @@ public class Fragment_Birth extends Fragment {
 
         sendRequestWithHttpURLConnection();
 
+
+        //获取子线程返回的数据并做处理
         mHandler = new Handler(){
             @Override
             public void handleMessage(Message msg){
@@ -78,23 +79,13 @@ public class Fragment_Birth extends Fragment {
             }
         };
 
-        /*tHandler = new Handler(){
-            @Override
-            public void handleMessage(Message msg){
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case 1:
-                        Toast.makeText(Fragment_Birth.this,"连接超时",Toast.LENGTH_SHORT).show();
-                }
-            }
-        };*/
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //将recyclerview传进来
         View view = inflater.inflate(R.layout.fragment__birth, container, false);
         context = view.getContext();
         recyclerView = view.findViewById(R.id.rv_birth);
@@ -103,9 +94,9 @@ public class Fragment_Birth extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         return view;
-        //return inflater.inflate(R.layout.fragment__birth, container, false);
     }
 
+    //网络请求
     private void sendRequestWithHttpURLConnection() {
         final String mUrl = "https://v1.alapi.cn/api/eventHitory";
         new Thread(new Runnable() {
@@ -121,6 +112,7 @@ public class Fragment_Birth extends Fragment {
                     InputStream in = connection.getInputStream();
                     String responseData = StreamToString(in);
 
+                    //返回数据给主线程
                     Message msg = new Message();
                     msg.obj = responseData;
                     mHandler.sendMessage(msg);
@@ -128,9 +120,6 @@ public class Fragment_Birth extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
 
-                    /*Message msg = new Message();
-                    msg.what = 1;
-                    tHandler.sendMessage(msg);*/
                 }
             }
         }).start();
@@ -156,6 +145,7 @@ public class Fragment_Birth extends Fragment {
         return sb.toString();
     }
 
+    //数据解析
     private void jsonDecode(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
@@ -167,6 +157,7 @@ public class Fragment_Birth extends Fragment {
                 String title = jsonObjectdata.getString("title");
                 String desc = jsonObjectdata.getString("desc");
                 String type = jsonObjectdata.getString("type");
+                //判断类型，并更新recyclerview
                 if (type.equals("birth")) {
                     list.add(new RvData(year+"年", monthday, type, title, desc));
                     rv_adapter.notifyDataSetChanged();

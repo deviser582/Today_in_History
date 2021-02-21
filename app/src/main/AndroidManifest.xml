@@ -12,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Service_Menu"></activity>
+        <activity android:name=".OpenBaidu"></activity>
+        <activity android:name=".Write_memo" />
+        <activity
+            android:name=".Memo"
+            android:label="@string/title_activity_memo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Service_Menu" />
         <activity
             android:name=".Tab_choose_2"
             android:label="@string/title_activity_tab_choose_2"

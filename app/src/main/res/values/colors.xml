@@ -10,4 +10,9 @@
     <color name="birth">#33B538</color>
     <color name="death">#167269</color>
     <color name="event">#F44336</color>
+    <color name="btn_menu">#FF9800</color>
+    <color name="menu_background">#8BC34A</color>
+    <color name="memo_item_background">#D6B03D</color>
+    <color name="memo_item_button">#CD382D</color>
+    <color name="memo_background">#CF8032</color>
 </resources>
